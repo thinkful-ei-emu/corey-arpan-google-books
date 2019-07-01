@@ -1,7 +1,15 @@
 import React from 'react';
 
-function bookSearch() {
-    console.log('booksearch')
+function BookSearch() {
+    return(
+        <div>
+            <form>
+                <label htmlFor="search">Search:</label>
+                <input type="text" id="search" name="search" placeholder="Moby Dick"required></input>
+                <button>Search</button>
+            </form>
+        </div>
+    )
 }
 
-export default bookSearch;
+export default BookSearch;
