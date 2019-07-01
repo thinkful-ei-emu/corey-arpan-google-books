@@ -6,18 +6,49 @@ import PrintType from './GoogleBooks/Printtype';
 import BookList from './GoogleBooks/Booklist';
 
 
-function App() {
+class App extends React.Component {
+  
+  state = {
+    items: [],
+    error: null,
+  }
+
+  handleSubmit = (event,searchTerm) => {
+
+    event.preventDefault();
+    
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=AIzaSyAKsOZI2ZXbMLF2Edt5u3cxTJP7cab_kC0`)
+      .then(res =>{
+        if(!res.ok){
+          throw new Error('Something went wrong')
+        }
+        return res.json();
+        })
+        .then(resJson => {
+          console.log(resJson);
+          this.setState({
+            items: resJson.items
+          })
+        })
+        .catch(err => {
+          this.setState({
+            error: err.message
+          })
+        })
+  }
+  
+  render(){
   return (
     <div className="App">
       <h1>Google Book Search</h1>
-      <BookSearch/>
+      <BookSearch handleSumbit = {(searchTerm) => this.handleSubmit(searchTerm)}/>
       <PrintType/>
       <BookType/>
-      <ul>
-        <BookList/>
-      </ul>
+      <BookList items={this.state.items}/>
       </div>
   );
+}
+
 }
 
 export default App;
