@@ -13,11 +13,13 @@ class App extends React.Component {
     error: null,
   }
 
-  handleSubmit = (event,searchTerm) => {
+  handleSubmit = (searchTerm) => {
 
-    event.preventDefault();
-    
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=AIzaSyAKsOZI2ZXbMLF2Edt5u3cxTJP7cab_kC0`)
+    // event.preventDefault();
+
+    console.log('TEST');
+
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=5&key=AIzaSyAKsOZI2ZXbMLF2Edt5u3cxTJP7cab_kC0`)
       .then(res =>{
         if(!res.ok){
           throw new Error('Something went wrong')
@@ -25,7 +27,7 @@ class App extends React.Component {
         return res.json();
         })
         .then(resJson => {
-          console.log(resJson);
+          // console.log(resJson);
           this.setState({
             items: resJson.items
           })
@@ -41,7 +43,7 @@ class App extends React.Component {
   return (
     <div className="App">
       <h1>Google Book Search</h1>
-      <BookSearch handleSumbit = {(searchTerm) => this.handleSubmit(searchTerm)}/>
+      <BookSearch handleSumbit = {this.handleSubmit}/>
       <PrintType/>
       <BookType/>
       <BookList items={this.state.items}/>
