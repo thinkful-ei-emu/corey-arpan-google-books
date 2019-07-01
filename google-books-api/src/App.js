@@ -19,7 +19,8 @@ class App extends React.Component {
 
     console.log('TEST');
 
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=5&key=AIzaSyCx_JrnAsBG0facsihW2rWx-m4hk5hVGfo`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=10&key=AIzaSyCx_JrnAsBG0facsihW2rWx-m4hk5hVGfo`)
+
       .then(res =>{
         if(!res.ok){
           throw new Error('Something went wrong')
